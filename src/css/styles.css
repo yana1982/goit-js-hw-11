@@ -106,32 +106,36 @@ body {
 .search-btn:active {
   background-color: #6c8cff;
 }
-.loader-hidden {
-  position: relative; 
-  width: 100px;
-  height: 100px;
-  margin: 0 auto;
-}
-
-.loader-hidden::before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
+.loader {
+  position: absolute; 
+  top: 50%; 
+  left: 45%; 
   transform: translate(-50%, -50%);
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  border: 2px solid #ccc;
-  border-top-color: #333;
-  animation: spin 1s linear infinite;
+  width: 48px;
+  height: 48px;
+}
+.loader:before,
+.loader:after {
+  content:"";
+  display: block;
+  border: 32px solid transparent;
+  border-top-color: #7190b4;
+  position: absolute;
+  left: 0;
+  top: 0;
+  animation: weld-rotate 2s infinite ease-in;
+}
+.loader:before {
+  border-color: transparent  transparent transparent #4e75ff;
+  animation-delay: 0.5s;
+}
+@keyframes weld-rotate {
+  0% , 25% {transform: rotate(0deg)}
+  50% , 75% {transform: rotate(180deg)}
+  100% {transform: rotate(360deg)}
 }
 
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
+
 .gallery {
   display: flex;
   flex-wrap: wrap;
@@ -152,18 +156,6 @@ body {
   height: 152px;
   width: 100%;
 }
-.visually-hidden {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  margin: -1px;
-  border: 0;
-  padding: 0;
-  white-space: nowrap;
-  clip-path: inset(100%);
-  clip: rect(0 0 0 0);
-  overflow: hidden;
-}
 .cards-wrapper{
   display: flex;
   justify-content: space-between;
@@ -183,4 +175,16 @@ body {
 .image-stats p {
   font-size: 12px;
   line-height: 2px;
+}
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  white-space: nowrap;
+  clip-path: inset(100%);
+  clip: rect(0 0 0 0);
+  overflow: hidden;
 }

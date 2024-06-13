@@ -1,7 +1,6 @@
 import { fetchImages } from './js/pixabay-appi';
 import { renderMarkup } from './js/render-functions';
 
-
 import alert from './img/alert.svg';
 import caution from './img/сaution.svg';
 
@@ -16,8 +15,9 @@ import 'izitoast/dist/css/iziToast.min.css';
 const searchFormElem = document.querySelector('.search-form');
 const searchInputElem = document.querySelector('.search-input');
 const searchBtnElem = document.querySelector('.search-btn');
-const standBySpanElem = document.querySelector('.loader-hidden');
+const standBySpanElem = document.querySelector('.loader');
 const galleryElem = document.querySelector('.gallery');
+
 let gallery = new SimpleLightbox('.gallery a', {
   captions: true,
   captionsData: 'alt',
@@ -30,8 +30,10 @@ searchBtnElem.addEventListener('click', event => {
     searchFormElem.reset();
     return;
   }
+
   galleryElem.innerHTML = '';
   standBySpanElem.classList.remove('visually-hidden');
+
   fetchImages(searchInputElem.value.trim())
     .then(data => {
       if (!data.total) {
@@ -46,11 +48,13 @@ searchBtnElem.addEventListener('click', event => {
       gallery.refresh();
       standBySpanElem.classList.add('visually-hidden');
     })
+
     .catch(error => {
       iziToast.warning({
-        iconUrl: caution,
+        title: 'Error',
+        message: message,
         position: 'topRight',
-        message: `${error}`,
+        timeout: 5000,
       });
     });
   searchFormElem.reset();
